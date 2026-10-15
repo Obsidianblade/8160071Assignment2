@@ -1,0 +1,23 @@
+# Gradle and Kotlin build output
+.gradle/
+.kotlin/
+build/
+/captures
+.externalNativeBuild
+.cxx
+
+# Machine-specific settings (Android SDK path) - never commit
+local.properties
+
+# Android Studio / IntelliJ IDE files
+*.iml
+.idea/
+
+# Built app packages and signing keys
+*.apk
+*.aab
+*.jks
+*.keystore
+
+# macOS
+.DS_Store
