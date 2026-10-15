@@ -1,3 +1,43 @@
 <resources>
     <string name="app_name">BookNest</string>
+
+    <!-- Login screen -->
+    <string name="login_welcome">Welcome to BookNest</string>
+    <string name="login_subtitle">Your personal digital library</string>
+    <string name="login_username_hint">Username</string>
+    <string name="login_username_helper">Your student ID, without the “s”</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_button">Log in</string>
+    <string name="login_in_progress">Signing in…</string>
+    <string name="login_progress_description">Signing in</string>
+    <string name="error_username_required">Please enter your username.</string>
+    <string name="error_password_required">Please enter your password.</string>
+
+    <!-- Dashboard screen -->
+    <string name="dashboard_subtitle">Discover Your Library</string>
+    <plurals name="dashboard_book_count">
+        <item quantity="one">%d Book Available</item>
+        <item quantity="other">%d Books Available</item>
+    </plurals>
+    <string name="dashboard_loading">Loading your library…</string>
+    <string name="dashboard_empty">No books are available right now.</string>
+    <string name="retry">Try again</string>
+    <string name="book_genre_year">%1$s • %2$d</string>
+    <string name="view_details">View Details →</string>
+    <string name="book_card_description">%1$s by %2$s. %3$s, %4$d.</string>
+
+    <!-- Book Details screen -->
+    <string name="details_title">Book Details</string>
+    <string name="navigate_back">Back to library</string>
+    <string name="details_published">Published: %d</string>
+    <string name="details_about">About this book</string>
+
+    <!-- Error messages (mapped from AppError in ui/ErrorMessages.kt) -->
+    <string name="error_invalid_credentials">Incorrect username or password. Please try again.</string>
+    <string name="error_invalid_keypass">We couldn’t open your library. Please restart the app and log in again.</string>
+    <string name="error_network">Unable to connect. Check your internet connection and try again.</string>
+    <string name="error_timeout">The server is taking too long to respond. It may be starting up, so please try again in a moment.</string>
+    <string name="error_server">The library server is having problems. Please try again later.</string>
+    <string name="error_unexpected_response">We received an unexpected response from the server. Please try again.</string>
+    <string name="error_unknown">Something went wrong. Please try again.</string>
 </resources>

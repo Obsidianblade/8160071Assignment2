@@ -1,9 +1,47 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.BookNest" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<resources>
+    <!--
+        BookNest uses a single light theme so the brand colours look the same on every
+        device. Material 3 components (buttons, text fields, cards, progress indicators)
+        read these colour roles automatically.
+    -->
+    <style name="Base.Theme.BookNest" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/navy</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/gold_light</item>
+        <item name="colorOnPrimaryContainer">@color/navy</item>
+        <item name="colorSecondary">@color/gold</item>
+        <item name="colorOnSecondary">@color/navy</item>
+        <item name="colorSecondaryContainer">@color/gold_light</item>
+        <item name="colorOnSecondaryContainer">@color/gold_dark</item>
+        <item name="android:colorBackground">@color/cream</item>
+        <item name="colorOnBackground">@color/charcoal</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/charcoal</item>
+        <item name="colorOnSurfaceVariant">@color/text_secondary</item>
+        <item name="colorOutline">@color/text_secondary</item>
+        <item name="colorOutlineVariant">@color/outline</item>
+        <item name="colorError">@color/error</item>
+        <item name="colorErrorContainer">@color/error_container</item>
+        <item name="colorOnErrorContainer">@color/on_error_container</item>
     </style>
 
     <style name="Theme.BookNest" parent="Base.Theme.BookNest" />
+
+    <!-- Rounded white card with a subtle border, shared by all three screens -->
+    <style name="Widget.BookNest.Card" parent="Widget.Material3.CardView.Outlined">
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="strokeColor">@color/outline</item>
+        <item name="cardCornerRadius">20dp</item>
+    </style>
+
+    <!-- Small pill used for the genre/year label -->
+    <style name="Widget.BookNest.GenrePill" parent="">
+        <item name="android:background">@drawable/bg_genre_pill</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:textAppearance">?attr/textAppearanceLabelLarge</item>
+        <item name="android:textColor">@color/gold_dark</item>
+    </style>
 </resources>
