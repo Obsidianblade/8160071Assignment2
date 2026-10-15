@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    The app's destinations and the routes between them.
+    The app's three destinations and the routes between them.
     Safe Args generates LoginFragmentDirections, DashboardFragmentArgs, etc. from this file.
 -->
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
@@ -25,12 +25,28 @@
 
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.example.booknest.ui.dashboard.DashboardFragment">
+        android:name="com.example.booknest.ui.dashboard.DashboardFragment"
+        tools:layout="@layout/fragment_dashboard">
 
-        <!-- The keypass returned by the login API -->
+        <!-- The keypass returned by the login API; DashboardViewModel reads it -->
         <argument
             android:name="keypass"
             app:argType="string" />
+
+        <action
+            android:id="@+id/action_dashboardFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.booknest.ui.details.DetailsFragment"
+        tools:layout="@layout/fragment_details">
+
+        <!-- The selected book (Parcelable thanks to @Parcelize) -->
+        <argument
+            android:name="book"
+            app:argType="com.example.booknest.data.model.Book" />
     </fragment>
 
 </navigation>

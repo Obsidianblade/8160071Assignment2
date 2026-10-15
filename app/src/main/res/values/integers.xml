@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Number of book columns on the dashboard. Phones: 1 -->
+    <integer name="book_grid_columns">1</integer>
+</resources>
