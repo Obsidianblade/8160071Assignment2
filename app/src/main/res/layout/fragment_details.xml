@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.details.DetailsFragment">
+
+    <!-- Top bar with an up arrow back to the library -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/details_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationContentDescription="@string/navigate_back"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:navigationIconTint="@color/navy"
+        app:title="@string/details_title"
+        app:titleTextColor="@color/navy" />
+
+    <!-- Scrolls so long descriptions and small screens are fully readable -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/details_scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/details_toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!-- Content width is capped so lines stay readable on tablets -->
+            <LinearLayout
+                android:id="@+id/details_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_max="600dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.BookNest.Card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:contentPadding="24dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="88dp"
+                            android:layout_height="88dp"
+                            android:background="@drawable/bg_icon_tile"
+                            android:importantForAccessibility="no"
+                            android:padding="22dp"
+                            android:src="@drawable/ic_book"
+                            app:tint="@color/gold" />
+
+                        <TextView
+                            android:id="@+id/details_book_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:accessibilityHeading="true"
+                            android:gravity="center"
+                            android:textAppearance="?attr/textAppearanceHeadlineSmall"
+                            android:textColor="@color/charcoal"
+                            android:textStyle="bold"
+                            tools:targetApi="p"
+                            tools:text="The Hobbit" />
+
+                        <TextView
+                            android:id="@+id/details_author"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center"
+                            android:textAppearance="?attr/textAppearanceTitleMedium"
+                            android:textColor="@color/text_secondary"
+                            tools:text="J.R.R. Tolkien" />
+
+                        <TextView
+                            android:id="@+id/details_genre"
+                            style="@style/Widget.BookNest.GenrePill"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            tools:text="Fantasy" />
+
+                        <TextView
+                            android:id="@+id/details_published"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:textAppearance="?attr/textAppearanceBodyMedium"
+                            android:textColor="@color/text_secondary"
+                            tools:text="Published: 1937" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/details_about_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="24dp"
+                    android:accessibilityHeading="true"
+                    android:letterSpacing="0.08"
+                    android:text="@string/details_about"
+                    android:textAllCaps="true"
+                    android:textAppearance="?attr/textAppearanceTitleSmall"
+                    android:textColor="@color/navy"
+                    tools:targetApi="p" />
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.BookNest.Card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:contentPadding="20dp">
+
+                    <TextView
+                        android:id="@+id/details_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingMultiplier="1.3"
+                        android:textAppearance="?attr/textAppearanceBodyLarge"
+                        android:textColor="@color/charcoal"
+                        android:textIsSelectable="true"
+                        tools:text="A children's fantasy novel about the adventures of hobbit Bilbo Baggins, serving as a prelude to The Lord of the Rings." />
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
