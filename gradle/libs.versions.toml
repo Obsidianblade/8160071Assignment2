@@ -1,7 +1,7 @@
 [versions]
 agp = "9.4.1"
-# Matches the Kotlin Gradle plugin that AGP 9.4.1 already uses (built-in Kotlin)
-kotlin = "2.2.10"
+# Kotlin Gradle plugin used by AGP built-in Kotlin. 2.3+ is needed for the Parcelize compiler plugin to attach.
+kotlin = "2.3.21"
 ksp = "2.3.12"
 coreKtx = "1.19.1"
 junit = "4.13.2"
