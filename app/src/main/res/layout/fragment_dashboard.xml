@@ -1,179 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--
+    CoordinatorLayout + AppBarLayout make the header part of the scrolling page: scrolling the
+    list up first moves the header off screen, then scrolls the books. The header can never sit
+    on top of a book card, and the whole screen is available for the list once it has gone.
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.DashboardFragment">
 
-    <!-- Header: app name, subtitle and number of books -->
-    <LinearLayout
-        android:id="@+id/dashboard_header"
-        android:layout_width="0dp"
+    <!-- Transparent, flat container: only the rounded navy header inside it is visible -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/dashboard_app_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/bg_dashboard_header"
-        android:orientation="vertical"
-        android:padding="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@android:color/transparent"
+        app:elevation="0dp"
+        app:liftOnScroll="false">
 
-        <TextView
-            android:id="@+id/dashboard_title"
-            android:layout_width="wrap_content"
+        <!-- Header: app name, subtitle and number of books. "scroll" moves it with the list. -->
+        <LinearLayout
+            android:id="@+id/dashboard_header"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:accessibilityHeading="true"
-            android:drawablePadding="12dp"
-            android:gravity="center_vertical"
-            android:text="@string/app_name"
-            android:textAppearance="?attr/textAppearanceHeadlineSmall"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:drawableStartCompat="@drawable/ic_book"
-            app:drawableTint="@color/gold"
-            tools:targetApi="p" />
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_dashboard_header"
+            android:orientation="vertical"
+            android:padding="24dp"
+            app:layout_scrollFlags="scroll">
 
-        <TextView
-            android:id="@+id/dashboard_subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/dashboard_subtitle"
-            android:textAppearance="?attr/textAppearanceTitleMedium"
-            android:textColor="@color/cream" />
+            <TextView
+                android:id="@+id/dashboard_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:accessibilityHeading="true"
+                android:drawablePadding="12dp"
+                android:gravity="center_vertical"
+                android:text="@string/app_name"
+                android:textAppearance="?attr/textAppearanceHeadlineSmall"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_book"
+                app:drawableTint="@color/gold"
+                tools:targetApi="p" />
 
-        <!-- Live region: screen readers announce the count once the books load -->
-        <TextView
-            android:id="@+id/book_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:accessibilityLiveRegion="polite"
-            android:background="@drawable/bg_count_pill"
-            android:paddingHorizontal="14dp"
-            android:paddingVertical="6dp"
-            android:textAppearance="?attr/textAppearanceLabelLarge"
-            android:textColor="@color/navy"
-            android:textStyle="bold"
+            <TextView
+                android:id="@+id/dashboard_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/dashboard_subtitle"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="@color/cream" />
+
+            <!-- Live region: screen readers announce the count once the books load -->
+            <TextView
+                android:id="@+id/book_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:accessibilityLiveRegion="polite"
+                android:background="@drawable/bg_count_pill"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="6dp"
+                android:textAppearance="?attr/textAppearanceLabelLarge"
+                android:textColor="@color/navy"
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:text="7 Books Available"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Everything below the header. The scrolling behaviour places it under the AppBarLayout
+         and lets the RecyclerView's scrolling move the header. -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <!-- Book list. spanCount comes from resources: 1 column on phones, 2 on wide screens. -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/books_recycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingHorizontal="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="16dp"
             android:visibility="gone"
-            tools:text="7 Books Available"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:spanCount="@integer/book_grid_columns"
+            tools:listitem="@layout/item_book"
             tools:visibility="visible" />
 
-    </LinearLayout>
-
-    <!-- Book list. spanCount comes from resources: 1 column on phones, 2 on wide screens. -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/books_recycler"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:paddingHorizontal="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="16dp"
-        android:visibility="gone"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dashboard_header"
-        app:spanCount="@integer/book_grid_columns"
-        tools:listitem="@layout/item_book"
-        tools:visibility="visible" />
-
-    <!-- Loading state -->
-    <LinearLayout
-        android:id="@+id/loading_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dashboard_header">
-
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/dashboard_progress"
+        <!-- Loading state -->
+        <LinearLayout
+            android:id="@+id/loading_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:importantForAccessibility="no" />
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/dashboard_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:importantForAccessibility="no" />
+
+            <TextView
+                android:id="@+id/loading_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:accessibilityLiveRegion="polite"
+                android:text="@string/dashboard_loading"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textColor="@color/text_secondary" />
+
+        </LinearLayout>
+
+        <!-- Error state with a retry button -->
+        <LinearLayout
+            android:id="@+id/error_group"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="32dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="480dp"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_error"
+                app:tint="@color/error" />
+
+            <TextView
+                android:id="@+id/error_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:accessibilityLiveRegion="polite"
+                android:gravity="center"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textColor="@color/charcoal"
+                tools:text="@string/error_network" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/retry_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:minHeight="48dp"
+                android:text="@string/retry" />
+
+        </LinearLayout>
+
+        <!-- Empty state: the API returned no books -->
         <TextView
-            android:id="@+id/loading_text"
+            android:id="@+id/empty_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:accessibilityLiveRegion="polite"
-            android:text="@string/dashboard_loading"
-            android:textAppearance="?attr/textAppearanceBodyLarge"
-            android:textColor="@color/text_secondary" />
-
-    </LinearLayout>
-
-    <!-- Error state with a retry button -->
-    <LinearLayout
-        android:id="@+id/error_group"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="32dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dashboard_header"
-        app:layout_constraintWidth_max="480dp"
-        tools:visibility="visible">
-
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:importantForAccessibility="no"
-            android:src="@drawable/ic_error"
-            app:tint="@color/error" />
-
-        <TextView
-            android:id="@+id/error_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:accessibilityLiveRegion="polite"
+            android:drawablePadding="12dp"
             android:gravity="center"
+            android:padding="32dp"
+            android:text="@string/dashboard_empty"
             android:textAppearance="?attr/textAppearanceBodyLarge"
-            android:textColor="@color/charcoal"
-            tools:text="@string/error_network" />
+            android:textColor="@color/text_secondary"
+            android:visibility="gone"
+            app:drawableTint="@color/text_secondary"
+            app:drawableTopCompat="@drawable/ic_book"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/retry_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:minHeight="48dp"
-            android:text="@string/retry" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
-
-    <!-- Empty state: the API returned no books -->
-    <TextView
-        android:id="@+id/empty_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawablePadding="12dp"
-        android:gravity="center"
-        android:padding="32dp"
-        android:text="@string/dashboard_empty"
-        android:textAppearance="?attr/textAppearanceBodyLarge"
-        android:textColor="@color/text_secondary"
-        android:visibility="gone"
-        app:drawableTint="@color/text_secondary"
-        app:drawableTopCompat="@drawable/ic_book"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dashboard_header" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
