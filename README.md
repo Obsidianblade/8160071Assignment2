@@ -261,7 +261,7 @@ On Windows, use `gradlew.bat` instead of `./gradlew`.
    - **Password:** your first name. It is case-sensitive.
 4. Tap any book on the dashboard to open its details. Use the up arrow or Back to return.
 
-The API host sleeps when idle, so the **first** request after a quiet period can take up to about a minute. If the timeout message appears, tap **Log in** or **Try again** once more.
+The API host sleeps when idle, so the **first** login after a quiet period can take about a minute while the server wakes up; the app keeps showing *Signing in…* and waits up to two minutes. If the timeout message still appears, tap **Log in** or **Try again** once more. To wake the server in advance, open <https://nit3213apinew.onrender.com/dashboard/books> in a browser.
 
 You can also install from the command line with `./gradlew installDebug`.
 
@@ -315,7 +315,7 @@ The screenshots don't show real login details; the offline-error screenshot uses
 - **Sydney campus only.** The login endpoint is fixed to `/sydney/auth`.
 - **No saved session.** The keypass isn't stored, so the user logs in again each time the app starts. There is also no logout button; Back on the Dashboard closes the app.
 - **No offline cache.** The book list needs a network connection.
-- **Cold starts.** The API host sleeps when idle, so the first request can be slow; the app shows a timeout message and the user retries.
+- **Cold starts.** The API host sleeps when idle, so the first request can take about a minute. The app waits up to two minutes (read timeout in `NetworkModule`); if the server takes longer, it shows a timeout message and the user retries.
 - **Light theme only.** The brand palette is designed for a light background, so the app doesn't switch to a dark theme.
 - **Launcher icon on Android 7.x.** The branded adaptive icon needs API 26+; devices on API 24–25 show the default bitmap icon.
 - **Tests.** Only unit tests are included (as specified in Lecture 8); there are no instrumented or UI tests.

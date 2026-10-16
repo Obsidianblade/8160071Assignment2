@@ -27,10 +27,10 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    // The API is hosted on a free tier that sleeps when idle; the first request can take
-    // close to a minute while it wakes up, so the read timeout is generous.
+    // The API is hosted on a free tier that sleeps when idle. Waking it up has been measured
+    // at about a minute, so the read timeout allows twice that before reporting a timeout.
     private const val CONNECT_TIMEOUT_SECONDS = 30L
-    private const val READ_TIMEOUT_SECONDS = 60L
+    private const val READ_TIMEOUT_SECONDS = 120L
 
     @Provides
     @Singleton
