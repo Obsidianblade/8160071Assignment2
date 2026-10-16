@@ -233,7 +233,7 @@ Network logging is set to `BASIC` (method, URL, status code, timing) in debug bu
 **Get the code**
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Obsidianblade/8160071Assignment2.git
 cd 8160071Assignment2
 ```
 
