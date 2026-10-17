@@ -292,6 +292,8 @@ Unit tests live in `app/src/test/` and run on the JVM. They need no emulator and
   The HTML report is written to `app/build/reports/tests/testDebugUnitTest/index.html`.
 
 Current result: **43 tests, 0 failures.**
+<img width="1367" height="702" alt="image" src="https://github.com/user-attachments/assets/5bf42db9-c513-4a33-9ffa-d63b97f061a4" />
+
 
 ## 11. Screenshots
 
